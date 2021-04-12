@@ -57,7 +57,8 @@ end
 PG.c = sqrt(air.gamma*(air.R/air.Mw).*air.Tinf); % spped of sound for PG correction [m/s]
 %% output
 out.subFolder = sprintf('pitch%.0f-%.0f_V%.0f-%.0f_J%.2f-%.2f_n%.0f-%.0f_B%.0f_SF%d',...
-    op.pitch(1),op.pitch(end),op.V(1),op.V(end),op.J(1),op.J(end),op.n(1)*60,op.n(end)*60,prop.B,prop.scaleFactor);
+    min(op.pitch(:)),max(op.pitch(:)),min(op.V(:)),max(op.V(:)),min(op.J(:)),...
+    max(op.J(:)),min(op.n(:))*60,max(op.n(:))*60,prop.B,prop.scaleFactor);
 if not(isfolder([out.Mainfolder,out.subFolder]))
     mkdir([out.Mainfolder,out.subFolder])
 end

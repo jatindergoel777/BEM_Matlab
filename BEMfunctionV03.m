@@ -15,7 +15,7 @@ for ii = 1:length(op.points(:,1))
     a1_calc = it.a1;
     f = cnvg.f;
 %%
-    while max(it.diff) >cnvg.tol || max(it.diff1) >cnvg.tol
+    while max(it.diff) >cnvg.Hardtol || max(it.diff1) >cnvg.Hardtol
         it.a = f.*a_calc + (1-f).*it.a;
         it.a1 = f.*a1_calc + (1-f).*it.a1;
         it.V_a= it.Uinf.*(1 + it.a);
@@ -96,7 +96,19 @@ for ii = 1:length(op.points(:,1))
         elseif it.iter == cnvg.maxIter
             fprintf('max diff = %d, not Converged at V = %.2f m/s, J = %.2f, n = %.0f rpm, and pitch = %.0f\n',...
                 max(max(abs(it.diff),abs(it.diff1))),it.Uinf,op.points(ii,2),op.points(ii,3)*60,op.points(ii,4))
-%             out{ii,1} = it;
+            %%%%%%%%%%%%%%%%%%%
+            fN = fieldnames(it);
+            idxNan = it.diff>cnvg.Softtol;
+            for iN = 1: length(fN)
+                if numel(it.(fN{iN})) == length(prop.rR)
+                    varN = it.(fN{iN});
+                    varN(idxNan) = nan;
+                    it.(fN{iN}) = varN;
+                    clear varN
+                end
+            end
+            clear fN idxNan
+            %%%%%%%%%%%%%%%%%%%%%%
             break;
         end
     end
