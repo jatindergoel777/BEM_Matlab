@@ -18,16 +18,17 @@ prop.elem = 50;             % No. of elements in the radial direction [-]
 prop.B = 6;                 % Number of propeller blades [-]
 
 %% Analysis conditions
-op.pitch = 30;  % Pitch angle of blade at reference location [deg]
+op.pitch = 1:50;  % Pitch angle of blade at reference location [deg]
 
 %%% Define the range of any two of V,J, and n. Leave the third one as empty matrix
 op.V = 60;      % Freestream air velocity [m/s]
-op.J = [];       % Advance ratio of analysis [-]
-op.n = 12000/60;      % Rotational speed of propeller [1/s]
+op.J = 0.4:0.05:2;       % Advance ratio of analysis [-]
+op.n = [];      % Rotational speed of propeller [1/s]
 
 %% Convergence condition
 
-cnvg.tol = 1e-10;       % tolerance for convergence of induction factors [-]
+cnvg.Hardtol = 1e-10;       % Desired tolerance for convergence of induction factors [-]
+cnvg.Softtol = 1e-3;       % Minimum acceptable tolerance for convergence of induction factors [-]
 cnvg.maxIter = 1000;    % Max number of iterations to converge to the tolerence level [-]
 cnvg.f = 0.2;           % Fraction of change in the solution after each iteration [-]
 
@@ -50,7 +51,7 @@ GC.Ct1 = 1.816;
 
 pd.xtr = 1.00;                      % transition point - 0.05 or 1
 pd.ReFolder = (0.1:0.2:9.9).*10^5;  % Re of folder conitaining data
-pd.ReData = (0.5:0.2:9.9).*10^5;      % Range of Re to be used for analysis (preferably avoid very low Re)
+pd.ReData = (0.1:0.2:9.9).*10^5;      % Range of Re to be used for analysis (preferably avoid very low Re)
 
 %%% Rotation correction parameters for RFOIL
 pd.RC.flag = 1;                     % Include rotational effects in polars? 
