@@ -2,27 +2,31 @@
 %  Temperature can be varied for each operating point if desired
 % In that case length(Tinf) should be equal to
 % length(op.pitch)*length(V)*length(J or n)
-air.Tinf = 298;     % at atmospheric pressure = 1 bar
+
+%%% Define the range of any one of h,Tinf. Leave the second one as empty matrix
+air.h = []; % altitude in meters
+air.Tinf = 288.15;     % at atmospheric pressure = 1 bar
 air.Tunit = 'K';    % K or C - temperature units 
 air.gamma = 1.4;    % Specific Heat ratio of air
 air.R = 8314.32;    %[J/kmol-K]
 air.Mw = 28.9644;   %[kg/kmol]
 %% Propeller Geometry
-prop.file = 'D:/PhD/Literature Review/XPropAnalysis/XPropAnalysis_BEMV02/Xprop_geometry.csv'; %Propeller geometry file
+prop.file = './PropellerGeometry/Xprop_geometry.csv'; %Propeller geometry file
 prop.scaleFactor = 1.0;     % Scaling factor for the propeller geometry [-]
 prop.hub_R = 0.21;          % Hub radius/Radius of propeller [-]
 prop.tip_R = 1;             % Tip radius/Radius of propeller [-]
 prop.RefBeta_rR = 0.7;      % Referance location for pitch angle [-]
 prop.method = 'cosine';     % Two options - 'linear' or 'cosine' for distribution of elements along blade span
 prop.elem = 50;             % No. of elements in the radial direction [-]
-prop.B = 6;                 % Number of propeller blades [-]
+prop.B = 3;                 % Number of propeller blades [-]
 
 %% Analysis conditions
-op.pitch = 1:50;  % Pitch angle of blade at reference location [deg]
+op.pitch = 15;  % Pitch angle of blade at reference location [deg]
 
 %%% Define the range of any two of V,J, and n. Leave the third one as empty matrix
-op.V = 60;      % Freestream air velocity [m/s]
-op.J = 0.4:0.05:2;       % Advance ratio of analysis [-]
+op.V = 30;      % Freestream air velocity [m/s]
+op.M = [];     % Freestream Mach number [-]
+op.J = 0.5:0.05:1.5;       % Advance ratio of analysis [-]
 op.n = [];      % Rotational speed of propeller [1/s]
 
 %% Convergence condition
@@ -50,8 +54,8 @@ GC.Ct1 = 1.816;
 %% Polar data inputs - Read already calculated polars
 
 pd.xtr = 1.00;                      % transition point - 0.05 or 1
-pd.ReFolder = (0.1:0.2:9.9).*10^5;  % Re of folder conitaining data
-pd.ReData = (0.1:0.2:9.9).*10^5;      % Range of Re to be used for analysis (preferably avoid very low Re)
+pd.ReFolder = (0.1:0.2:9.9).*10^6;  % Re of folder conitaining data
+pd.ReData = (0.1:0.2:9.9).*10^6;      % Range of Re to be used for analysis (preferably avoid very low Re)
 
 %%% Rotation correction parameters for RFOIL
 pd.RC.flag = 1;                     % Include rotational effects in polars? 
@@ -60,7 +64,7 @@ pd.RC.rf = [1 1 0];                 % Rotation correction parameters
 pd.N = 4.5;                         % critical amplification exponent
 
 %%%
-pd.folderPath = 'D:/PhD/Literature Review/XPropAnalysis/PolarData_Xprop/txt/';
+pd.folderPath = './PolarData/';
 
 %% File output
 out.Mainfolder = './Analysis/';

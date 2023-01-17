@@ -54,7 +54,7 @@ else
     error('Error. Either define constant temperature for analysis or temperature should be defined every operating codition to be analysed');
 end
 
-PG.c = sqrt(air.gamma*(air.R/air.Mw).*air.Tinf); % spped of sound for PG correction [m/s]
+PG.c = sqrt(air.gamma*(air.R/air.Mw).*air.Tinf); % speed of sound for PG correction [m/s]
 %% output
 out.subFolder = sprintf('pitch%.0f-%.0f_V%.0f-%.0f_J%.2f-%.2f_n%.0f-%.0f_B%.0f_SF%d',...
     min(op.pitch(:)),max(op.pitch(:)),min(op.V(:)),max(op.V(:)),min(op.J(:)),...

@@ -3,16 +3,15 @@ clc
 %% User inputs
 % UserInputValidation;
 UserInput;
-preProcessBEM;
+preProcessBEMV03;
 %% Interpolate polar data of blade sections
-polarProcess;
+polarProcess_viterna;
 %% BEM Calculations
 bem = BEMfunctionV03(air,prop,op,cnvg,D4,PG,RT,GC);
 %%
 processBEMResult;
 
 %% save mat file
-out.str = '';
-save([out.matFile1,out.str],'D4');
+save(out.matFile1,'D4');
 clearvars D4
-save([out.matFile2,out.str]);
+save(out.matFile2);
