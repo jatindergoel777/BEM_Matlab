@@ -1,0 +1,8 @@
+airfoilName st9.dat
+Re 	10000
+M 	7.000000e-01
+N 	4.500000e+00
+VACC 	0 VACCflag 1
+XTR 	1.00 	1.00 XTRflag 0
+alpha,cl,cd,cdp,cm
+

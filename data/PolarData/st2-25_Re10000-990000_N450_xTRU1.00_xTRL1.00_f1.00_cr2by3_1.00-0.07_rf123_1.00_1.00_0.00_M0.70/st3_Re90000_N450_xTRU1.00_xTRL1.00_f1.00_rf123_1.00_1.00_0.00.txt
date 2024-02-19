@@ -1,0 +1,10 @@
+airfoilName st3.dat
+Re 	90000
+M 	7.000000e-01
+N 	4.500000e+00
+VACC 	0 VACCflag 1
+XTR 	1.00 	1.00 XTRflag 0
+alpha,cl,cd,cdp,cm
+0.9,0.6453,0.02193,0.00829,-0.0545
+1,0.6707,0.0223,0.0086,-0.0546
+
